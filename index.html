@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Management System</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="container mt-3 ">
+      <h2 class="text-center">Task Management System</h2>
+        <div class="card p-4 shadow-sm">
+          <div class="col g-3">
+            <div class="col-md-4 w-100">
+              <input
+                type="text"
+                id="taskTitle"
+                class="form-control mb-2"
+                placeholder="Task Title"
+                required
+              />
+            </div>
+            <div class="col-md-4 w-100">
+              <input
+                type="text"
+                id="taskDescription"
+                class="form-control mb-2"
+                placeholder="Task Description"
+                required
+              />
+            </div>
+            <div class="col-md-3 w-100">
+              <select id="status" class="form-select">
+                <option value="todo">To Do</option>
+                <option value="inprogress" disabled>In Progress</option>
+                <option value="done" disabled>Done</option>
+              </select>
+            </div>
+            <div class="col-md-1 d-grid w-100 mt-3">
+              <button id="addTaskButton" class="btn btn-primary">Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card p-3 mt-4 shadow-md">
+        <h5 class="fw-bold">Search and Filter</h5>
+        <div class="row g-3">
+          <div class="col-md-3">
+            <input
+              type="text"
+              id="titleSearch"
+              class="form-control"
+              placeholder="Search by Title"
+            />
+          </div>
+          <div class="col-md-3">
+            <input
+              type="text"
+              id="descSearch"
+              class="form-control"
+              placeholder="Search by Description"
+            />
+          </div>
+          <div class="col-md-3">
+            <input
+              type="text"
+              id="titleDescSearch"
+              class="form-control"
+              placeholder="Search by Title or Description"
+            />
+          </div>
+          <div class="col-md-3">
+            <select id="statusFilter" class="form-select">
+              <option value="">All Tasks</option>
+              <option value="To Do">To Do</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Completed">Completed</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="card p-3 shadow-sm mt-4">
+        <h5 class="fw-bold">Legend</h5>
+        <div class="d-flex gap-5 mt-2 ">
+          <div class="d-flex align-items-center gap-2">
+            <span
+              class="border border-danger bg-danger-subtle rounded-pill p-2"
+            ></span>
+            To Do
+          </div>
+          <div class="d-flex align-items-center gap-2">
+            <span
+              class="border border-warning bg-warning-subtle rounded-pill p-2"
+            ></span>
+            In Progress
+          </div>
+          <div class="d-flex align-items-center gap-2">
+            <span
+              class="border border-success bg-success-subtle rounded-pill p-2"
+            ></span>
+            Done
+          </div>
+        </div>
+      </div>
+      <div class="card p-3 mt-4">
+        <h5 class="fw-bold  ">Task tracking Analytics</h5>
+        <div class="d-flex justify-content-between fs-6 mt-2">
+          <p>Tasks Completed: <span id="completedCount" class="fw-bold">0</span></p>
+          <p>Remaining Task: <span id="remainingCount" class="fw-bold">0</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+      <div id="taskList" class="row g-3 mt-3">
+      </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
+
