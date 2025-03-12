@@ -28,15 +28,17 @@ function displayTasks() {
     }
 
     const filteredTasks = tasks.filter((task) => {
-        const matchesTitle = task.title.toLowerCase().includes(titleSearchQuery);
-        const matchesDescription = task.description.toLowerCase().includes(descSearchQuery);
-        const matchesTitleOrDescription = task.title.toLowerCase().includes(titleDescSearchQuery) || task.description.toLowerCase().includes(titleDescSearchQuery);
+        const taskTitle = task.title.toLowerCase();
+        const taskDescription = task.description.toLowerCase();
+        const matchesTitle = titleSearchQuery && taskTitle.includes(titleSearchQuery);
+        const matchesDescription = descSearchQuery && taskDescription.includes(descSearchQuery);
+        const matchesTitleOrDescription = titleDescSearchQuery && (taskTitle.includes(titleDescSearchQuery) || taskDescription.includes(titleDescSearchQuery));
         const matchesStatus = statusFilter ? task.status === statusFilter : true;
 
         return (
-            (!titleSearchQuery || matchesTitle) &&
-            (!descSearchQuery || matchesDescription) &&
-            (!titleDescSearchQuery || matchesTitleOrDescription) &&
+            (titleSearchQuery ? matchesTitle : true) &&
+            (descSearchQuery ? matchesDescription : true) &&
+            (titleDescSearchQuery ? matchesTitleOrDescription : true) &&
             matchesStatus
         );
     });
@@ -46,9 +48,8 @@ function displayTasks() {
     } else {
         filteredTasks.forEach((task) => {
             let taskDiv = document.createElement("div");
-            taskDiv.classList.add("task");
+            taskDiv.classList.add("col-md-4");
             taskDiv.innerHTML = `
-            <div class="col-md-4">
                 <div class="card ${getTaskColor(task.status)} shadow">
                     <div class="card-body">
                         <h3 class="card-title">${task.title}</h3>
@@ -59,12 +60,11 @@ function displayTasks() {
                             <option value="Completed" ${task.status === "Completed" ? "selected" : ""}>Completed</option>
                         </select>
                         <div class="mt-3 d-flex justify-content-between">
-                            <button class="btn btn-secondary btn-sm" onclick="deleteTask('${task.id}')">Delete</button>
+                            <button class="btn btn-warning btn-sm" onclick="deleteTask('${task.id}')">Delete</button>
                             <button class="btn btn-secondary btn-sm" onclick="editTask('${task.id}')">Edit</button>
                         </div>
                     </div>
                 </div>
-            </div>
             `;
             taskList.appendChild(taskDiv);
         });
@@ -125,7 +125,6 @@ function editTask(id) {
     if (task) {
         document.getElementById("taskTitle").value = task.title;
         document.getElementById("taskDescription").value = task.description;
-
         isEditing = true;
         editTaskId = id;
 
@@ -176,3 +175,8 @@ document.addEventListener("keypress", function (event) {
 });
 
 displayTasks();
+document.getElementById("titleSearch").addEventListener("input", searchTasks);
+document.getElementById("descSearch").addEventListener("input", searchTasks);
+document.getElementById("titleDescSearch").addEventListener("input", searchTasks);
+document.getElementById("statusFilter").addEventListener("change", searchTasks);
+
